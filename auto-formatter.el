@@ -16,6 +16,9 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+(defvar auto-formatter-keyword-list '("if" "else" "foreach" "while" "for"
+                                      "switch"))
+
 (defun auto-formatter-at-indentation()
   (save-excursion
     (and (not (= (skip-chars-backward " \t") 0))
