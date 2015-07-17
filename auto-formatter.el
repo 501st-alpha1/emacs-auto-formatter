@@ -91,7 +91,9 @@
 ;;
 (defun auto-formatter-format-buffer()
   (interactive)
-  (untabify (point-min) (point-max))
+  (if indent-tabs-mode
+      (tabify (point-min) (point-max))
+    (untabify (point-min) (point-max)))
   (auto-formatter-fix-curly-braces (point-min) (point-max))
   (auto-formatter-fix-spacing (point-min) (point-max))
   (auto-formatter-fix-argument-spacing (point-min) (point-max))
