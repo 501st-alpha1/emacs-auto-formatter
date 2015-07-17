@@ -68,6 +68,21 @@
         (when (char-equal (char-after) (aref "(" 0))
           (insert " "))))))
 
+;; Function to split lines longer than 80 characters by commas.
+;; Enhancement: run again on the new line?
+(defun auto-formatter-split-long-line-by-comma()
+  (interactive)
+  (save-excursion
+    (beginning-of-line)
+    (unless (search-forward "," (line-end-position) t)
+      (user-error "There are no commas on this line"))
+    (if (< (- (point) (line-beginning-position)) 80)
+        (progn
+          (insert "\n")
+          (indent-for-tab-command))
+      (user-error (concat "The comma is past the line limit, so splitting "
+                          "wouldn't help.")))))
+
 ;;
 ;; The main function. Calls various other functions to do formatting.
 ;;
