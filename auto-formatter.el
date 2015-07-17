@@ -96,3 +96,5 @@
   (auto-formatter-fix-spacing (point-min) (point-max))
   (auto-formatter-fix-argument-spacing (point-min) (point-max))
   (indent-region (point-min) (point-max)))
+
+(provide 'auto-formatter)
