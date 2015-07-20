@@ -94,7 +94,8 @@
   (if indent-tabs-mode
       (tabify (point-min) (point-max))
     (untabify (point-min) (point-max)))
-  (auto-formatter-fix-curly-braces (point-min) (point-max))
+  (unless (string-suffix-p ".blade.php" buffer-file-name)
+    (auto-formatter-fix-curly-braces (point-min) (point-max)))
   (auto-formatter-fix-spacing (point-min) (point-max))
   (auto-formatter-fix-argument-spacing (point-min) (point-max))
   (indent-region (point-min) (point-max)))
