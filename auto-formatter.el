@@ -17,7 +17,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (defvar auto-formatter-keyword-list '("if" "else" "foreach" "while" "for"
-                                      "switch"))
+                                      "switch" "try" "catch"))
 
 (defun auto-formatter-at-indentation()
   (save-excursion
