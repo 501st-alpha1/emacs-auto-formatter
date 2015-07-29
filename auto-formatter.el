@@ -18,6 +18,8 @@
 
 (defvar auto-formatter-keyword-list '("if" "else" "foreach" "while" "for"
                                       "switch" "try" "catch"))
+(defvar auto-formatter-attachable-keyword-list '("else" "catch"))
+(defvar auto-formatter-code-tag-list '("script" "style"))
 
 (defun auto-formatter-at-indentation()
   (save-excursion
