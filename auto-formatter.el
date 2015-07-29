@@ -53,6 +53,16 @@
           (unless (char-equal (char-after) (aref " " 0))
             (insert " ")))))))
 
+(defun auto-formatter-fix-attachable(min max)
+  (save-excursion
+    (dolist (keyword auto-formatter-attachable-keyword-list t)
+      (goto-char min)
+      (while (search-forward keyword max t)
+        (backward-word)
+        (unless (auto-formatter-at-indentation)
+          (insert "\n"))
+        (forward-word)))))
+
 (defun auto-formatter-fix-curly-braces(min max)
   (save-excursion
     (save-restriction
@@ -100,6 +110,7 @@
     (auto-formatter-fix-curly-braces (point-min) (point-max)))
   (auto-formatter-fix-spacing (point-min) (point-max))
   (auto-formatter-fix-argument-spacing (point-min) (point-max))
+  (auto-formatter-fix-attachable (point-min) (point-max))
   (indent-region (point-min) (point-max)))
 
 (provide 'auto-formatter)
