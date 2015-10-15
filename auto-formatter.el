@@ -34,6 +34,11 @@
     (skip-chars-backward " \t\n")
     (char-equal (char-before) (aref char 0))))
 
+(defun auto-formatter-next-non-whitespace-char-is(char)
+  (save-excursion
+    (skip-chars-forward " \t\n")
+    (char-equal (char-after) (aref char 0))))
+
 (defun auto-formatter-fix-argument-spacing(min max)
   (save-excursion
     (goto-char min)
@@ -75,6 +80,15 @@
           (delete-indentation))
         (end-of-line)))))
 
+(defun auto-formatter-fix-empty-lines(min max)
+  (save-excursion
+    (goto-char min)
+    (while (search-forward "\n\n" max t)
+      (backward-char)
+      (when (or (auto-formatter-previous-non-whitespace-char-is "{")
+                (auto-formatter-next-non-whitespace-char-is "}"))
+        (kill-line)))))
+
 (defun auto-formatter-fix-spacing(min max)
   (save-excursion
     (dolist (keyword auto-formatter-keyword-list t)
@@ -110,6 +124,7 @@
     (auto-formatter-fix-curly-braces (point-min) (point-max)))
   (auto-formatter-fix-spacing (point-min) (point-max))
   (auto-formatter-fix-argument-spacing (point-min) (point-max))
+  (auto-formatter-fix-empty-lines (point-min) (point-max))
   (unless (string-suffix-p ".blade.php" buffer-file-name)
     (auto-formatter-fix-attachable (point-min) (point-max)))
   (indent-region (point-min) (point-max)))
