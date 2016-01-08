@@ -112,21 +112,24 @@
       (user-error (concat "The comma is past the line limit, so splitting "
                           "wouldn't help.")))))
 
+(defun auto-formatter-format-specified(min max)
+  (if indent-tabs-mode
+      (tabify min max)
+    (untabify min max))
+  (unless (string-suffix-p ".blade.php" buffer-file-name)
+    (auto-formatter-fix-curly-braces min max))
+  (auto-formatter-fix-spacing min max)
+  (auto-formatter-fix-argument-spacing min max)
+  (auto-formatter-fix-empty-lines min max)
+  (unless (string-suffix-p ".blade.php" buffer-file-name)
+    (auto-formatter-fix-attachable min max))
+  (indent-region min max))
+
 ;;
 ;; The main function. Calls various other functions to do formatting.
 ;;
 (defun auto-formatter-format-buffer()
   (interactive)
-  (if indent-tabs-mode
-      (tabify (point-min) (point-max))
-    (untabify (point-min) (point-max)))
-  (unless (string-suffix-p ".blade.php" buffer-file-name)
-    (auto-formatter-fix-curly-braces (point-min) (point-max)))
-  (auto-formatter-fix-spacing (point-min) (point-max))
-  (auto-formatter-fix-argument-spacing (point-min) (point-max))
-  (auto-formatter-fix-empty-lines (point-min) (point-max))
-  (unless (string-suffix-p ".blade.php" buffer-file-name)
-    (auto-formatter-fix-attachable (point-min) (point-max)))
-  (indent-region (point-min) (point-max)))
+  (auto-formatter-format-specified (point-min) (point-max)))
 
 (provide 'auto-formatter)
