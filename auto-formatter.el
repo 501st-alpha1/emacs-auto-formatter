@@ -32,12 +32,14 @@
 (defun auto-formatter-previous-non-whitespace-char-is(char)
   (save-excursion
     (skip-chars-backward " \t\n")
-    (char-equal (char-before) (aref char 0))))
+    (and (char-before)
+         (char-equal (char-before) (aref char 0)))))
 
 (defun auto-formatter-next-non-whitespace-char-is(char)
   (save-excursion
     (skip-chars-forward " \t\n")
-    (char-equal (char-after) (aref char 0))))
+    (and (char-after)
+         (char-equal (char-after) (aref char 0)))))
 
 (defun auto-formatter-fix-argument-spacing(min max)
   (save-excursion
