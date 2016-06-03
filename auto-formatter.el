@@ -80,7 +80,8 @@
                     (auto-formatter-previous-char-is "(")
                     (auto-formatter-previous-char-is "["))
           (insert " "))
-        (when (auto-formatter-at-indentation)
+        (when (and (auto-formatter-at-indentation)
+                   (not (auto-formatter-previous-non-whitespace-char-is ",")))
           (delete-indentation))
         (end-of-line)))))
 
