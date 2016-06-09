@@ -82,7 +82,8 @@
                     (string-suffix-p ".cshtml" buffer-file-name))
           (insert " "))
         (when (and (auto-formatter-at-indentation)
-                   (not (auto-formatter-previous-non-whitespace-char-is ",")))
+                   (not (auto-formatter-previous-non-whitespace-char-is ","))
+                   (not (auto-formatter-previous-non-whitespace-char-is "[")))
           (delete-indentation))
         (end-of-line)))))
 
