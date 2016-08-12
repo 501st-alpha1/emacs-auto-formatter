@@ -20,6 +20,7 @@
                                       "switch" "try" "catch"))
 (defvar auto-formatter-attachable-keyword-list '("else" "catch"))
 (defvar auto-formatter-code-tag-list '("script" "style"))
+(defvar auto-formatter-curly-brace-on-new-line nil)
 
 (defun auto-formatter-at-indentation()
   (save-excursion
@@ -81,10 +82,13 @@
                     (auto-formatter-previous-char-is "[")
                     (string-suffix-p ".cshtml" buffer-file-name))
           (insert " "))
-        (when (and (auto-formatter-at-indentation)
-                   (not (auto-formatter-previous-non-whitespace-char-is ","))
-                   (not (auto-formatter-previous-non-whitespace-char-is "[")))
-          (delete-indentation))
+        (if auto-formatter-curly-brace-on-new-line
+            (unless (auto-formatter-at-indentation)
+              (insert "\n"))
+          (when (and (auto-formatter-at-indentation)
+                     (not (auto-formatter-previous-non-whitespace-char-is ","))
+                     (not (auto-formatter-previous-non-whitespace-char-is "[")))
+            (delete-indentation)))
         (end-of-line)))))
 
 (defun auto-formatter-fix-empty-lines(min max)
