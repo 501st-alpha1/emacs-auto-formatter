@@ -1,5 +1,5 @@
 ;; Emacs extension to automatically format code
-;; Copyright (C) 2015 Scott Weldon
+;; Copyright (C) 2015-2016 Scott Weldon
 
 ;; This file is NOT part of GNU Emacs.
 
