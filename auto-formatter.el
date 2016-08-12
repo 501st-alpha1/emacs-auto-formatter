@@ -72,6 +72,11 @@
         (forward-word)))))
 
 (defun auto-formatter-fix-curly-braces(min max)
+  "Normalize curly braces depending on newline setting.
+
+If `auto-formatter-curly-brace-on-new-line` is nil (the default), then ensure
+all opening curly braces ('{') are attached to the end of the previous line.
+Otherwise, ensure they are on their own line."
   (save-excursion
     (save-restriction
       (goto-char min)
